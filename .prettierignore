@@ -1,0 +1,6 @@
+*.yml
+yarn.lock
+/public
+/build
+.gitignore
+*.log
