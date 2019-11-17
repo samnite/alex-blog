@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const db = {
   screams: [
     {
@@ -30,6 +31,7 @@ const db = {
   ],
 };
 
+/* eslint-disable no-unused-vars */
 const userDetails = {
   // Redux data
   credentials: {
