@@ -4,3 +4,4 @@ yarn.lock
 /build
 .gitignore
 *.log
+/node_modules
