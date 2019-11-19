@@ -1,12 +1,24 @@
 /* eslint-disable no-unused-vars */
-const db = {
+let db = {
+  users: [
+    {
+      userId: 'dh23ggj5h32g543j5gf43',
+      email: 'user@email.com',
+      handle: 'user',
+      createdAt: '2019-03-15T10:59:52.798Z',
+      imageUrl: 'image/dsfsdkfghskdfgs/dgfdhfgdh',
+      bio: 'Hello, my name is user, nice to meet you',
+      website: 'https://user.com',
+      location: 'Lonodn, UK',
+    },
+  ],
   screams: [
     {
       userHandle: 'user',
-      body: 'this is the scream body',
-      createdAt: '2019-11-14T13:13:45.521Z',
+      body: 'This is a sample scream',
+      createdAt: '2019-03-15T10:59:52.798Z',
       likeCount: 5,
-      commentCount: 2,
+      commentCount: 3,
     },
   ],
   comments: [
@@ -17,16 +29,14 @@ const db = {
       createdAt: '2019-03-15T10:59:52.798Z',
     },
   ],
-  users: [
+  notifications: [
     {
-      userId: 'dsdsd4545g34fysgef43',
-      email: 'user@email.com',
-      handle: 'user',
-      createdAt: '2019-11-14T13:13:45.521Z',
-      imageUrl: 'image/sdadsadsad/dfdf',
-      bio: 'Hello, My name is Alex',
-      website: 'https://user.com',
-      location: 'London, UK',
+      recipient: 'user',
+      sender: 'john',
+      read: 'true | false',
+      screamId: 'kdjsfgdksuufhgkdsufky',
+      type: 'like | comment',
+      createdAt: '2019-03-15T10:59:52.798Z',
     },
   ],
 };
