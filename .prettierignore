@@ -5,3 +5,4 @@ yarn.lock
 .gitignore
 *.log
 /node_modules
+*.png
