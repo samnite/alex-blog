@@ -9,6 +9,9 @@
   },
   "rules": {
     "react/forbid-prop-types": 0,
+    "react/jsx-props-no-spreading": 0,
+    "no-shadow": "off",
+    "no-use-before-define": "off",
     "react/prop-types": 0,
     "no-console": "off",
     "global-require": "off",

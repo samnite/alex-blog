@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 // MUI Stuff
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -10,41 +9,36 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signupUser } from '../store/actions/user-actions';
 import AppIcon from '../images/icon.png';
 
 const styles = theme => ({
   ...theme.spreadThis,
 });
 
-const Signup = ({ classes, history }) => {
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
+const Signup = ({ classes, history, signupUser, UI: { loading, errors } }) => {
+  const [stateErrors, setErrors] = useState({});
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [handle, setHandle] = useState('');
 
+  useEffect(() => {
+    if (errors) {
+      setErrors(errors);
+    }
+  }, [errors]);
+
   const handleSubmit = event => {
     event.preventDefault();
-    setLoading(true);
-    const userData = {
+    const newUserData = {
       email,
       password,
       confirmPassword,
       handle,
     };
-    axios
-      .post('/signup', userData)
-      .then(res => {
-        console.log(res.data);
-        localStorage.setItem('FBIdToken', `Bearer ${res.data.token}`);
-        setLoading(false);
-        history.push('/');
-      })
-      .catch(err => {
-        setErrors(err.response.data);
-        setLoading(false);
-      });
+    signupUser(newUserData, history);
   };
 
   return (
@@ -61,8 +55,8 @@ const Signup = ({ classes, history }) => {
             name="email"
             type="email"
             label="Email"
-            helperText={errors.email}
-            error={!!errors.email}
+            helperText={stateErrors.email}
+            error={!!stateErrors.email}
             className={classes.textField}
             value={email}
             onChange={e => setEmail(e.target.value)}
@@ -73,8 +67,8 @@ const Signup = ({ classes, history }) => {
             name="password"
             type="password"
             label="Password"
-            helperText={errors.password}
-            error={!!errors.password}
+            helperText={stateErrors.password}
+            error={!!stateErrors.password}
             className={classes.textField}
             value={password}
             onChange={e => setPassword(e.target.value)}
@@ -85,8 +79,8 @@ const Signup = ({ classes, history }) => {
             name="confirmPassword"
             type="password"
             label="Confirm Password"
-            helperText={errors.confirmPassword}
-            error={!!errors.confirmPassword}
+            helperText={stateErrors.confirmPassword}
+            error={!!stateErrors.confirmPassword}
             className={classes.textField}
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
@@ -97,16 +91,16 @@ const Signup = ({ classes, history }) => {
             name="handle"
             type="text"
             label="Handle"
-            helperText={errors.handle}
-            error={!!errors.handle}
+            helperText={stateErrors.handle}
+            error={!!stateErrors.handle}
             className={classes.textField}
             value={handle}
             onChange={e => setHandle(e.target.value)}
             fullWidth
           />
-          {errors.general && (
+          {stateErrors.general && (
             <Typography variant="body2" className={classes.customError}>
-              {errors.general}
+              {stateErrors.general}
             </Typography>
           )}
           <Button
@@ -133,6 +127,14 @@ const Signup = ({ classes, history }) => {
 
 Signup.propTypes = {
   classes: PropTypes.object.isRequired,
+  signupUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  UI: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Signup);
+const mapStateToProps = state => ({
+  user: state.user,
+  UI: state.UI,
+});
+
+export default connect(mapStateToProps, { signupUser })(withStyles(styles)(Signup));
