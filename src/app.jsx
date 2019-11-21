@@ -5,7 +5,9 @@ import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-import { connect } from 'react-redux';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'connected-react-router';
+import { createBrowserHistory } from 'history';
 import themeFile from './util/theme';
 // Pages
 import Home from './pages/home';
@@ -14,7 +16,11 @@ import Signup from './pages/signup';
 // Components
 import Navbar from './components/navbar';
 import AuthRoute from './util/auth-route';
-import { logoutUser, getUserData, setAuthenticated } from './store/actions/user-actions';
+import { logoutUser, getUserData } from './store/actions/user-actions';
+import store from './store/store';
+import { SET_AUTHENTICATED } from './store/types';
+
+const history = createBrowserHistory();
 
 const theme = createMuiTheme(themeFile);
 const StyledContainer = styled.div`
@@ -26,31 +32,34 @@ const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
   if (decodedToken.exp * 1000 < Date.now()) {
-    logoutUser();
+    store.dispatch(logoutUser());
     window.location.href = '/login';
   } else {
-    setAuthenticated();
-    console.log('work');
+    store.dispatch({ type: SET_AUTHENTICATED });
     axios.defaults.headers.common.Authorization = token;
-    getUserData();
+    store.dispatch(getUserData());
   }
 }
 
 const App = () => {
   return (
     <MuiThemeProvider theme={theme}>
-      <Router>
-        <Navbar />
-        <StyledContainer>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <AuthRoute exact path="/login" component={Login} />
-            <AuthRoute exact path="/signup" component={Signup} />
-          </Switch>
-        </StyledContainer>
-      </Router>
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
+          <Router>
+            <Navbar />
+            <StyledContainer>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <AuthRoute exact path="/login" component={Login} />
+                <AuthRoute exact path="/signup" component={Signup} />
+              </Switch>
+            </StyledContainer>
+          </Router>
+        </ConnectedRouter>
+      </Provider>
     </MuiThemeProvider>
   );
 };
 
-export default connect(null, { logoutUser, getUserData, setAuthenticated })(App);
+export default App;
