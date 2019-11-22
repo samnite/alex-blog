@@ -6,6 +6,7 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   SET_AUTHENTICATED,
+  LOADING_USER,
 } from '../types';
 
 export const loginUser = (userData, history) => dispatch => {
@@ -46,6 +47,7 @@ export const signupUser = (newUserData, history) => dispatch => {
 };
 
 export const getUserData = () => dispatch => {
+  dispatch({ type: LOADING_USER });
   axios
     .get('/user')
     .then(res => {
