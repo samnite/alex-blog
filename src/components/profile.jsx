@@ -14,9 +14,11 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
+import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
 import Tooltip from '@material-ui/core/Tooltip';
 import { logoutUser, uploadImage } from '../store/actions/user-actions';
-import theme from '../util/theme';
+import EditDetails from './edit-details';
+// import theme from '../util/theme';
 
 const styles = theme => ({
   paper: {
@@ -76,6 +78,10 @@ const Profile = ({
   logoutUser,
   uploadImage,
 }) => {
+  const handleLogout = () => {
+    logoutUser();
+  };
+
   const handleImageChange = e => {
     const image = e.target.files[0];
     const formData = new FormData();
@@ -127,6 +133,12 @@ const Profile = ({
             <CalendarToday color="primary" />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
+          <Tooltip title="Logout" placement="top">
+            <IconButton onClick={handleLogout}>
+              <KeyboardReturn color="primary" />
+            </IconButton>
+          </Tooltip>
+          <EditDetails />
         </div>
       </Paper>
     ) : (
