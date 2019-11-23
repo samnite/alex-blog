@@ -3,16 +3,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import withStyles from '@material-ui/core/styles/withStyles';
 // MUI Stuff
+import withStyles from '@material-ui/core/styles/withStyles';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
-
+import IconButton from '@material-ui/core/IconButton';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
+import Tooltip from '@material-ui/core/Tooltip';
+import { logoutUser, uploadImage } from '../store/actions/user-actions';
 import theme from '../util/theme';
 
 const styles = theme => ({
@@ -70,7 +73,19 @@ const Profile = ({
     loading,
     authenticated,
   },
+  logoutUser,
+  uploadImage,
 }) => {
+  const handleImageChange = e => {
+    const image = e.target.files[0];
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    uploadImage(formData);
+  };
+  const handleEditPicture = () => {
+    const fileInput = document.getElementById('imageInput');
+    fileInput.click();
+  };
   // eslint-disable-next-line no-nested-ternary
   return !loading ? (
     authenticated ? (
@@ -78,6 +93,12 @@ const Profile = ({
         <div className={classes.profile}>
           <div className="image-wrapper">
             <img src={imageUrl} alt="profile" className="profile-image" />
+            <input type="file" id="imageInput" onChange={handleImageChange} hidden />
+            <Tooltip title="Edit profile picture" placement="top">
+              <IconButton onClick={handleEditPicture} className="button">
+                <EditIcon color="primary" />
+              </IconButton>
+            </Tooltip>
           </div>
           <hr />
           <div className="profile-details">
@@ -135,6 +156,8 @@ const mapStateToProps = state => ({
 Profile.propTypes = {
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  logoutUser: PropTypes.func.isRequired,
+  uploadImage: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Profile));
+export default connect(mapStateToProps, { logoutUser, uploadImage })(withStyles(styles)(Profile));
