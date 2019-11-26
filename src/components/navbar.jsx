@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 // MUI stuff
 import AppBar from '@material-ui/core/AppBar';
@@ -11,24 +13,38 @@ const StyledNavbar = styled.div`
   margin: auto;
 `;
 
-const Navbar = () => {
+const Navbar = ({ authenticated }) => {
   return (
     <AppBar>
       <StyledNavbar>
         <Toolbar>
-          <Button color="inherit" component={Link} to="/login">
-            Login
-          </Button>
-          <Button color="inherit" component={Link} to="/">
-            Home
-          </Button>
-          <Button color="inherit" component={Link} to="/signup">
-            Signup
-          </Button>
+          {authenticated ? (
+            <></>
+          ) : (
+            <>
+              <Button color="inherit" component={Link} to="/login">
+                Login
+              </Button>
+              <Button color="inherit" component={Link} to="/">
+                Home
+              </Button>
+              <Button color="inherit" component={Link} to="/signup">
+                Signup
+              </Button>
+            </>
+          )}
         </Toolbar>
       </StyledNavbar>
     </AppBar>
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => ({
+  authenticated: state.user.authenticated,
+});
+
+Navbar.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+};
+
+export default connect(mapStateToProps)(Navbar);
