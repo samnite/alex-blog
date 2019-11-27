@@ -6,7 +6,9 @@ import {
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
+  DELETE_SCREAM,
 } from '../types';
+import scream from '../../components/scream';
 
 const initialState = {
   screams: [],
@@ -29,8 +31,19 @@ export default (state = initialState, action) => {
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
-      const index = state.screams.findIndex(scream => scream.screamId === action.payload.screamId);
-      state.screams[index] = action.payload;
+      // eslint-disable-next-line no-case-declarations
+      const unlikeIndex = state.screams.findIndex(
+        scream => scream.screamId === action.payload.screamId,
+      );
+      // eslint-disable-next-line no-param-reassign
+      state.screams[unlikeIndex] = action.payload;
+      return {
+        ...state,
+      };
+    case DELETE_SCREAM:
+      // eslint-disable-next-line no-case-declarations
+      const deleteIndex = state.screams.findIndex(scream => scream.screamId === action.payload);
+      state.screams.splice(deleteIndex, 1);
       return {
         ...state,
       };

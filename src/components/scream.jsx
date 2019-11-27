@@ -15,9 +15,11 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 import { likeScream, unLikeScream } from '../store/actions/data-actions';
 import MyButton from '../util/my-button';
+import DeleteScream from './delete-Scream';
 
 const styles = {
   card: {
+    position: 'relative',
     display: 'flex',
     marginBottom: 20,
   },
@@ -35,7 +37,11 @@ const Scream = ({
   scream: { userImage, body, createdAt, userHandle, screamId, likeCount, commentCount },
   likeScream,
   unLikeScream,
-  user: { likes, authenticated },
+  user: {
+    likes,
+    authenticated,
+    credentials: { handle },
+  },
 }) => {
   const likedScream = () => {
     return !!(likes && likes.find(like => like.screamId === screamId));
@@ -66,6 +72,9 @@ const Scream = ({
     </MyButton>
   );
 
+  const deleteButton =
+    authenticated && userHandle === handle ? <DeleteScream screamId={screamId} /> : null;
+
   return (
     <Card className={classes.card}>
       <CardMedia image={userImage} title="Profile Image" className={classes.image} />
@@ -73,6 +82,7 @@ const Scream = ({
         <Typography variant="h5" component={Link} to={`/users/${userHandle}`} color="primary">
           {userHandle}
         </Typography>
+        {deleteButton}
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>
