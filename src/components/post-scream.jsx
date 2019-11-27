@@ -12,24 +12,27 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import MyButton from '../util/my-button';
-import { postScream } from '../store/actions/data-actions';
+import { clearErrors, postScream } from '../store/actions/data-actions';
 
 const styles = theme => ({
   ...theme.spreadThis,
   submitButton: {
     position: 'relative',
+    float: 'right',
+    marginTop: 10,
+    marginBottom: 10,
   },
   progressSpinner: {
     position: 'absolute',
   },
   closeButton: {
     position: 'absolute',
-    left: '90%',
-    top: '10%',
+    left: '91%',
+    top: '5%',
   },
 });
 
-const PostScream = ({ postScream, classes, UI: { loading, errors } }) => {
+const PostScream = ({ postScream, clearErrors, classes, UI: { loading, errors } }) => {
   const [open, setOpen] = useState(false);
   const [body, setBody] = useState('');
   const [stateErrors, setErrors] = useState({});
@@ -48,6 +51,7 @@ const PostScream = ({ postScream, classes, UI: { loading, errors } }) => {
     setOpen(true);
   };
   const handleClose = () => {
+    clearErrors();
     setOpen(false);
     setErrors({});
   };
@@ -101,6 +105,7 @@ const PostScream = ({ postScream, classes, UI: { loading, errors } }) => {
 
 PostScream.propTypes = {
   postScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   UI: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
@@ -109,4 +114,6 @@ const mapStateToProps = state => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { postScream })(withStyles(styles)(PostScream));
+export default connect(mapStateToProps, { postScream, clearErrors })(
+  withStyles(styles)(PostScream),
+);
