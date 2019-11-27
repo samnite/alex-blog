@@ -8,9 +8,16 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
+import HomeIcon from '@material-ui/icons/Home';
+import Notifications from '@material-ui/icons/Notifications';
+import MyButton from '../util/my-button';
 
 const StyledNavbar = styled.div`
   margin: auto;
+  svg {
+    color: #fff;
+  }
 `;
 
 const Navbar = ({ authenticated }) => {
@@ -20,9 +27,17 @@ const Navbar = ({ authenticated }) => {
         <Toolbar>
           {authenticated ? (
             <>
-              <Button color="inherit" component={Link} to="/">
-                Home
-              </Button>
+              <MyButton tip="Post a Scream">
+                <AddIcon />
+              </MyButton>
+              <Link to="/">
+                <MyButton tip="Home">
+                  <HomeIcon />
+                </MyButton>
+              </Link>
+              <MyButton tip="Notifications">
+                <Notifications />
+              </MyButton>
             </>
           ) : (
             <>

@@ -1,50 +1,42 @@
-import { CLEAR_PROJECT, GET_PROJECT, SET_ALERT, SET_MAIN_PAGE } from '../types';
-import { config } from '../../firebase-config';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import axios from 'axios';
+import { SET_SCREAMS, LOADING_DATA, LIKE_SCREAM, UNLIKE_SCREAM } from '../types';
 
-firebase.initializeApp(config);
-const db = firebase.firestore();
-
-export const setAlert = alert => {
-  console.log('work in setAlert');
-  return {
-    type: SET_ALERT,
-    payload: alert,
-  };
-};
-
-export const getProject = project_name => async dispatch => {
-  const docRef = db.collection('projects').doc(project_name);
-  try {
-    await docRef.get().then(doc => {
-      if (doc.exists) {
-        dispatch({
-          type: GET_PROJECT,
-          payload: doc.data(),
-        });
-      } else {
-        // doc.data() will be undefined in this case
-        dispatch({
-          type: SET_ALERT,
-          payload: 'No such document',
-        });
-      }
+// Get All Screams
+export const getScreams = () => dispatch => {
+  dispatch({ type: LOADING_DATA });
+  axios
+    .get('/screams')
+    .then(res => {
+      dispatch({ type: SET_SCREAMS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({
+        type: SET_SCREAMS,
+        payload: [],
+      });
     });
-  } catch (err) {
-    console.log('Error getting document:', err);
-  }
 };
 
-export const setMainPage = isMain => {
-  return {
-    type: SET_MAIN_PAGE,
-    payload: isMain,
-  };
+// Like a scream
+export const likeScream = screamId => dispatch => {
+  axios
+    .get(`/scream/${screamId}/like`)
+    .then(res => {
+      dispatch({ type: LIKE_SCREAM, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };
 
-export const clearProject = () => {
-  return {
-    type: CLEAR_PROJECT,
-  };
+// Unlike a scream
+export const unLikeScream = screamId => dispatch => {
+  axios
+    .get(`/scream/${screamId}/unlike`)
+    .then(res => {
+      dispatch({ type: UNLIKE_SCREAM, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+    });
 };

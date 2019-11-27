@@ -8,16 +8,15 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
 import CalendarToday from '@material-ui/icons/CalendarToday';
-import IconButton from '@material-ui/core/IconButton';
 import MuiLink from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import Tooltip from '@material-ui/core/Tooltip';
 import { logoutUser, uploadImage } from '../store/actions/user-actions';
 import EditDetails from './edit-details';
+import MyButton from '../util/my-button';
 // import theme from '../util/theme';
 
 const styles = theme => ({
@@ -100,11 +99,9 @@ const Profile = ({
           <div className="image-wrapper">
             <img src={imageUrl} alt="profile" className="profile-image" />
             <input type="file" id="imageInput" onChange={handleImageChange} hidden />
-            <Tooltip title="Edit profile picture" placement="top">
-              <IconButton onClick={handleEditPicture} className="button">
-                <EditIcon color="primary" />
-              </IconButton>
-            </Tooltip>
+            <MyButton tip="Edit profile picture" onClick={handleEditPicture} btnClassName="button">
+              <EditIcon color="primary" />
+            </MyButton>
           </div>
           <hr />
           <div className="profile-details">
@@ -133,11 +130,9 @@ const Profile = ({
             <CalendarToday color="primary" />{' '}
             <span>Joined {dayjs(createdAt).format('MMM YYYY')}</span>
           </div>
-          <Tooltip title="Logout" placement="top">
-            <IconButton onClick={handleLogout}>
-              <KeyboardReturn color="primary" />
-            </IconButton>
-          </Tooltip>
+          <MyButton tip="Logout" onClick={handleLogout}>
+            <KeyboardReturn color="primary" />
+          </MyButton>
           <EditDetails />
         </div>
       </Paper>
