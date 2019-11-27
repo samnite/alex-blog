@@ -7,6 +7,7 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   DELETE_SCREAM,
+  POST_SCREAM,
 } from '../types';
 import scream from '../../components/scream';
 
@@ -46,6 +47,11 @@ export default (state = initialState, action) => {
       state.screams.splice(deleteIndex, 1);
       return {
         ...state,
+      };
+    case POST_SCREAM:
+      return {
+        ...state,
+        screams: [action.payload, ...state.screams],
       };
 
     default:
