@@ -8,6 +8,7 @@ import {
   LOADING_UI,
   DELETE_SCREAM,
   POST_SCREAM,
+  SET_SCREAM,
 } from '../types';
 import scream from '../../components/scream';
 
@@ -29,6 +30,11 @@ export default (state = initialState, action) => {
         ...state,
         screams: action.payload,
         loading: false,
+      };
+    case SET_SCREAM:
+      return {
+        ...state,
+        scream: action.payload,
       };
     case LIKE_SCREAM:
     case UNLIKE_SCREAM:
