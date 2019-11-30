@@ -9,6 +9,7 @@
   },
   "rules": {
     "react/forbid-prop-types": 0,
+    "no-nested-ternary": "off",
     "no-unused-vars": "off",
     "react/jsx-props-no-spreading": 0,
     "no-shadow": "off",

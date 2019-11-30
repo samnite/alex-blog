@@ -55,6 +55,7 @@ const App = () => {
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={Signup} />
                 <Route exact path="/users/:handle" component={User} />
+                <Route exact path="/users/:handle/scream/:screamId" component={User} />
               </Switch>
             </StyledContainer>
           </Router>
@@ -65,3 +66,7 @@ const App = () => {
 };
 
 export default App;
+
+// TODO fix like/unlike in scream-dialog.jsx
+// TODO fix clear comment form after post comment
+// TODO fix links like 'http://localhost:3000/user/user3/scream/IyTKu2vj2OqWVkegWQBW'

@@ -9,9 +9,9 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import HomeIcon from '@material-ui/icons/Home';
-import Notifications from '@material-ui/icons/Notifications';
 import MyButton from '../../util/my-button';
 import PostScream from '../scream/post-scream';
+import Notifications from './notifications';
 
 const StyledNavbar = styled.div`
   margin: auto;
@@ -33,9 +33,7 @@ const Navbar = ({ authenticated }) => {
                   <HomeIcon />
                 </MyButton>
               </Link>
-              <MyButton tip="Notifications">
-                <Notifications />
-              </MyButton>
+              <Notifications />
             </>
           ) : (
             <>

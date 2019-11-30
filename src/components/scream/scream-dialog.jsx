@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import dayjs from 'dayjs';
@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 // MUI Stuff
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -14,7 +13,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import { connect } from 'react-redux';
 import ChatIcon from '@material-ui/icons/Chat';
-import CardContent from '@material-ui/core/CardContent';
 import MyButton from '../../util/my-button';
 import { getScream, clearErrors } from '../../store/actions/data-actions';
 import LikeButton from './like-button';
@@ -52,16 +50,33 @@ const ScreamDialog = ({
   getScream,
   clearErrors,
   screamIdProp,
+  userHandleProp,
+  openDialog,
   scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle, comments },
   UI: { loading },
 }) => {
   const [open, setOpen] = useState(false);
+  const [oldPathState, setOldPath] = useState('');
+  const [newPathState, setNewPath] = useState('');
+
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+  }, []);
 
   const handleOpen = () => {
+    let oldPath = window.location.pathname;
+    const newPath = `/user/${userHandleProp}/scream/${screamIdProp}`;
+    if (oldPath === newPath) oldPath = `/users/${userHandleProp}`;
+    window.history.pushState(null, null, newPath);
     setOpen(true);
+    setOldPath(oldPath);
+    setNewPath(newPath);
     getScream(screamIdProp);
   };
   const handleClose = () => {
+    window.history.pushState(null, null, oldPathState);
     setOpen(false);
     clearErrors();
   };
@@ -117,7 +132,7 @@ ScreamDialog.propTypes = {
   getScream: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired,
   screamIdProp: PropTypes.string.isRequired,
-  userHandle: PropTypes.string.isRequired,
+  userHandleProp: PropTypes.string.isRequired,
   scream: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
 };

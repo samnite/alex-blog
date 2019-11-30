@@ -33,6 +33,7 @@ const styles = {
 
 const Scream = ({
   classes,
+  openDialog,
   scream: { userImage, body, createdAt, userHandle, screamId, likeCount, commentCount },
   user: {
     authenticated,
@@ -62,7 +63,7 @@ const Scream = ({
           <ChatIcon color="primary" />
         </MyButton>
         <span>{commentCount} comments</span>
-        <ScreamDialog screamIdProp={screamId} userHandle={userHandle} />
+        <ScreamDialog screamIdProp={screamId} userHandleProp={userHandle} openDialog={openDialog} />
       </CardContent>
     </Card>
   );
