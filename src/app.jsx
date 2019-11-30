@@ -14,7 +14,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Signup from './pages/signup';
 // Components
-import Navbar from './components/navbar';
+import Navbar from './components/layout/navbar';
 import AuthRoute from './util/auth-route';
 import { logoutUser, getUserData } from './store/actions/user-actions';
 import store from './store/store';

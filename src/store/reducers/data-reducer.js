@@ -10,7 +10,7 @@ import {
   POST_SCREAM,
   SET_SCREAM,
 } from '../types';
-import scream from '../../components/scream';
+import scream from '../../components/scream/scream';
 
 const initialState = {
   screams: [],
@@ -44,6 +44,10 @@ export default (state = initialState, action) => {
       );
       // eslint-disable-next-line no-param-reassign
       state.screams[unlikeIndex] = action.payload;
+      if (state.scream.screamId === action.payload.screamId) {
+        // eslint-disable-next-line no-param-reassign
+        state.scream = action.payload;
+      }
       return {
         ...state,
       };

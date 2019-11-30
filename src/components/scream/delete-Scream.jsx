@@ -8,8 +8,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import { deleteScream } from '../store/actions/data-actions';
-import MyButton from '../util/my-button';
+import { deleteScream } from '../../store/actions/data-actions';
+import MyButton from '../../util/my-button';
 
 const styles = {
   deleteButton: {

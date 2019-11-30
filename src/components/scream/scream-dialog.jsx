@@ -13,8 +13,11 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import UnfoldMore from '@material-ui/icons/UnfoldMore';
 import { connect } from 'react-redux';
-import MyButton from '../util/my-button';
-import { getScream } from '../store/actions/data-actions';
+import ChatIcon from '@material-ui/icons/Chat';
+import CardContent from '@material-ui/core/CardContent';
+import MyButton from '../../util/my-button';
+import { getScream } from '../../store/actions/data-actions';
+import LikeButton from './like-button';
 
 const styles = theme => ({
   ...theme.spreadThis,
@@ -49,7 +52,7 @@ const styles = theme => ({
 const ScreamDialog = ({
   classes,
   getScream,
-  onScreamId,
+  screamIdProp,
   scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle },
   UI: { loading },
 }) => {
@@ -57,7 +60,7 @@ const ScreamDialog = ({
 
   const handleOpen = () => {
     setOpen(true);
-    getScream(onScreamId);
+    getScream(screamIdProp);
   };
   const handleClose = () => {
     setOpen(false);
@@ -83,6 +86,12 @@ const ScreamDialog = ({
         </Typography>
         <hr className={classes.invisibleSeparator} />
         <Typography variant="body1">{body}</Typography>
+        <LikeButton screamId={screamId} />
+        <span>{likeCount} likes</span>
+        <MyButton tip="comments">
+          <ChatIcon color="primary" />
+        </MyButton>
+        <span>{commentCount} comments</span>
       </Grid>
     </Grid>
   );
@@ -104,7 +113,7 @@ const ScreamDialog = ({
 
 ScreamDialog.propTypes = {
   getScream: PropTypes.func.isRequired,
-  screamId: PropTypes.string.isRequired,
+  screamIdProp: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   scream: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,

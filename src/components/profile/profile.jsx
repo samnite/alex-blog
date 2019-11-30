@@ -14,9 +14,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardReturn from '@material-ui/icons/KeyboardReturn';
-import { logoutUser, uploadImage } from '../store/actions/user-actions';
+import { logoutUser, uploadImage } from '../../store/actions/user-actions';
 import EditDetails from './edit-details';
-import MyButton from '../util/my-button';
+import MyButton from '../../util/my-button';
 // import theme from '../util/theme';
 
 const styles = theme => ({

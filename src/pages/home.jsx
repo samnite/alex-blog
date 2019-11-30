@@ -3,8 +3,8 @@ import { Grid } from '@material-ui/core';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Scream from '../components/scream';
-import Profile from '../components/profile';
+import Scream from '../components/scream/scream';
+import Profile from '../components/profile/profile';
 import { getScreams } from '../store/actions/data-actions';
 
 const Home = ({ getScreams, data: { screams, loading } }) => {

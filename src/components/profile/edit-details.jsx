@@ -9,8 +9,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import EditIcon from '@material-ui/icons/Edit';
-import { editUserDetails } from '../store/actions/user-actions';
-import MyButton from '../util/my-button';
+import { editUserDetails } from '../../store/actions/user-actions';
+import MyButton from '../../util/my-button';
 
 const styles = theme => ({
   ...theme.spreadThis,

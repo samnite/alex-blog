@@ -10,8 +10,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
-import MyButton from '../util/my-button';
-import { clearErrors, postScream } from '../store/actions/data-actions';
+import MyButton from '../../util/my-button';
+import { clearErrors, postScream } from '../../store/actions/data-actions';
 
 const styles = theme => ({
   ...theme.spreadThis,
