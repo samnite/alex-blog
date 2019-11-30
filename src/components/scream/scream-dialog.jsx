@@ -16,15 +16,13 @@ import { connect } from 'react-redux';
 import ChatIcon from '@material-ui/icons/Chat';
 import CardContent from '@material-ui/core/CardContent';
 import MyButton from '../../util/my-button';
-import { getScream } from '../../store/actions/data-actions';
+import { getScream, clearErrors } from '../../store/actions/data-actions';
 import LikeButton from './like-button';
+import Comments from './comments';
+import CommentForm from './comment-form';
 
 const styles = theme => ({
   ...theme.spreadThis,
-  invisibleSeparator: {
-    border: 'none',
-    margin: 4,
-  },
   profileImage: {
     maxWidth: 200,
     height: 200,
@@ -52,8 +50,9 @@ const styles = theme => ({
 const ScreamDialog = ({
   classes,
   getScream,
+  clearErrors,
   screamIdProp,
-  scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle },
+  scream: { screamId, body, createdAt, likeCount, commentCount, userImage, userHandle, comments },
   UI: { loading },
 }) => {
   const [open, setOpen] = useState(false);
@@ -64,6 +63,7 @@ const ScreamDialog = ({
   };
   const handleClose = () => {
     setOpen(false);
+    clearErrors();
   };
 
   const dialogMarkup = loading ? (
@@ -72,7 +72,6 @@ const ScreamDialog = ({
     </div>
   ) : (
     <Grid container spacing={2}>
-      {/* Maybe not 16 but 3 ^ */}
       <Grid item sm={5}>
         <img src={userImage} alt="Profile" className={classes.profileImage} />
       </Grid>
@@ -93,6 +92,9 @@ const ScreamDialog = ({
         </MyButton>
         <span>{commentCount} comments</span>
       </Grid>
+      <hr className={classes.visibleSeparator} />
+      <CommentForm screamId={screamId} />
+      <Comments comments={comments} />
     </Grid>
   );
 
@@ -113,6 +115,7 @@ const ScreamDialog = ({
 
 ScreamDialog.propTypes = {
   getScream: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   screamIdProp: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   scream: PropTypes.object.isRequired,
@@ -124,4 +127,6 @@ const mapStateToProps = state => ({
   UI: state.UI,
 });
 
-export default connect(mapStateToProps, { getScream })(withStyles(styles)(ScreamDialog));
+export default connect(mapStateToProps, { getScream, clearErrors })(
+  withStyles(styles)(ScreamDialog),
+);

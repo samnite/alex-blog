@@ -19,6 +19,7 @@ import AuthRoute from './util/auth-route';
 import { logoutUser, getUserData } from './store/actions/user-actions';
 import store from './store/store';
 import { SET_AUTHENTICATED } from './store/types';
+import User from './pages/user';
 
 const history = createBrowserHistory();
 
@@ -53,6 +54,7 @@ const App = () => {
                 <Route exact path="/" component={Home} />
                 <AuthRoute exact path="/login" component={Login} />
                 <AuthRoute exact path="/signup" component={Signup} />
+                <Route exact path="/users/:handle" component={User} />
               </Switch>
             </StyledContainer>
           </Router>
