@@ -1,8 +1,8 @@
 export default {
   palette: {
     primary: {
-      light: '#33c9dc',
-      main: '#678d3b', // #00bcd4
+      light: '#cf56a1',
+      main: '#8b2f97', // #00bcd4
       dark: '#008394',
       contrastText: '#fff',
     },
@@ -94,6 +94,28 @@ export default {
       '& a': {
         margin: '20px 10px',
       },
+    },
+    profileImage: {
+      maxWidth: 200,
+      height: 200,
+      borderRadius: '50%',
+      objectFit: 'cover',
+    },
+    dialogContent: {
+      padding: 40,
+    },
+    closeButton: {
+      position: 'absolute',
+      left: '90%',
+    },
+    expandButton: {
+      position: 'absolute',
+      left: '90%',
+    },
+    spinnerDiv: {
+      textAlign: 'center',
+      marginTop: 50,
+      marginBottom: 50,
     },
   },
 };

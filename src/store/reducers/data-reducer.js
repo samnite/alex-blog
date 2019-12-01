@@ -3,15 +3,11 @@ import {
   LIKE_SCREAM,
   UNLIKE_SCREAM,
   LOADING_DATA,
-  SET_ERRORS,
-  CLEAR_ERRORS,
-  LOADING_UI,
   DELETE_SCREAM,
   POST_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
 } from '../types';
-import scream from '../../components/scream/scream';
 
 const initialState = {
   screams: [],

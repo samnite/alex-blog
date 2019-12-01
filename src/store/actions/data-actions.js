@@ -36,6 +36,7 @@ export const likeScream = screamId => dispatch => {
     .get(`/scream/${screamId}/like`)
     .then(res => {
       dispatch({ type: LIKE_SCREAM, payload: res.data });
+      dispatch(getBackgroundScream(screamId));
     })
     .catch(err => {
       console.log(err);
@@ -48,6 +49,7 @@ export const unLikeScream = screamId => dispatch => {
     .get(`/scream/${screamId}/unlike`)
     .then(res => {
       dispatch({ type: UNLIKE_SCREAM, payload: res.data });
+      dispatch(getBackgroundScream(screamId));
     })
     .catch(err => {
       console.log(err);
@@ -106,6 +108,20 @@ export const getScream = screamId => dispatch => {
         payload: res.data,
       });
       dispatch({ type: STOP_LOADING_UI });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const getBackgroundScream = screamId => dispatch => {
+  axios
+    .get(`/scream/${screamId}`)
+    .then(res => {
+      dispatch({
+        type: SET_SCREAM,
+        payload: res.data,
+      });
     })
     .catch(err => {
       console.log(err);

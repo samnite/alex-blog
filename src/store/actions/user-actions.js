@@ -5,7 +5,6 @@ import {
   CLEAR_ERRORS,
   LOADING_UI,
   SET_UNAUTHENTICATED,
-  SET_AUTHENTICATED,
   LOADING_USER,
   MARK_NOTIFICATIONS_READ,
 } from '../types';
@@ -60,11 +59,6 @@ export const getUserData = () => dispatch => {
     .catch(err => {
       console.log(err);
     });
-};
-
-export const setAuthenticated = () => dispatch => {
-  console.log('work in dispatch');
-  dispatch({ type: SET_AUTHENTICATED });
 };
 
 export const logoutUser = () => dispatch => {

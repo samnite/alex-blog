@@ -31,7 +31,7 @@ const CommentForm = ({
   const handleSubmit = e => {
     e.preventDefault();
     submitComment(screamId, { body });
-    setBody(''); // need to fix
+    setBody('');
   };
   return authenticated ? (
     <Grid item sm={12} style={{ textAlign: 'center' }}>

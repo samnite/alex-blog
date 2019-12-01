@@ -68,7 +68,3 @@ const App = () => {
 };
 
 export default App;
-
-// TODO fix like/unlike in scream-dialog.jsx
-// TODO fix clear comment form after post comment
-// TODO fix links like 'http://localhost:3000/user/user3/scream/IyTKu2vj2OqWVkegWQBW'

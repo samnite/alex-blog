@@ -44,6 +44,7 @@ const PostScream = ({ postScream, clearErrors, classes, UI: { loading, errors } 
       setBody('');
       handleClose();
     }
+    // eslint-disable-next-line
   }, [errors, loading]);
 
   const handleOpen = () => {

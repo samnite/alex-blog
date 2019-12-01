@@ -10,6 +10,7 @@ import ScreamSkeleton from '../util/scream-skeleton';
 const Home = ({ getScreams, data: { screams, loading } }) => {
   useEffect(() => {
     getScreams();
+    // eslint-disable-next-line
   }, []);
   const recentScreamsMarkup = !loading ? (
     screams.map(scream => <Scream scream={scream} key={scream.screamId} />)

@@ -21,28 +21,6 @@ import CommentForm from './comment-form';
 
 const styles = theme => ({
   ...theme.spreadThis,
-  profileImage: {
-    maxWidth: 200,
-    height: 200,
-    borderRadius: '50%',
-    objectFit: 'cover',
-  },
-  dialogContent: {
-    padding: 40,
-  },
-  closeButton: {
-    position: 'absolute',
-    left: '90%',
-  },
-  expandButton: {
-    position: 'absolute',
-    left: '90%',
-  },
-  spinnerDiv: {
-    textAlign: 'center',
-    marginTop: 50,
-    marginBottom: 50,
-  },
 });
 
 const ScreamDialog = ({
@@ -57,18 +35,22 @@ const ScreamDialog = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [oldPathState, setOldPath] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [newPathState, setNewPath] = useState('');
 
   useEffect(() => {
     if (openDialog) {
       handleOpen();
     }
+    // eslint-disable-next-line
   }, []);
 
   const handleOpen = () => {
     let oldPath = window.location.pathname;
-    const newPath = `/user/${userHandleProp}/scream/${screamIdProp}`;
-    if (oldPath === newPath) oldPath = `/users/${userHandleProp}`;
+    const newPath = `/users/${userHandleProp}/scream/${screamIdProp}`;
+    if (oldPath === newPath) {
+      oldPath = `/users/${userHandleProp}`;
+    }
     window.history.pushState(null, null, newPath);
     setOpen(true);
     setOldPath(oldPath);

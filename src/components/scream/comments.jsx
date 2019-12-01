@@ -62,7 +62,8 @@ const Comments = ({ comments, classes }) => {
 // 10:14
 
 Comments.propTypes = {
-  comments: PropTypes.array.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  comments: PropTypes.array,
 };
 
 export default withStyles(styles)(Comments);
