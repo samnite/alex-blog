@@ -29,6 +29,8 @@ const StyledContainer = styled.div`
   max-width: 1200px;
 `;
 
+axios.defaults.baseURL = 'https://europe-west1-alex-blog-4c277.cloudfunctions.net/api';
+
 const token = localStorage.FBIdToken;
 if (token) {
   const decodedToken = jwtDecode(token);
