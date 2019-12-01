@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { getUserData } from '../store/actions/data-actions';
 import StaticProfile from '../components/profile/static-profile';
 import Scream from '../components/scream/scream';
+import ScreamSkeleton from '../util/scream-skeleton';
+import ProfileSkeleton from '../util/profile-skeleton';
 
 const User = ({
   getUserData,
@@ -29,7 +31,7 @@ const User = ({
       });
   }, []);
   const screamsMarkup = loading ? (
-    <p>Loading data...</p>
+    <ScreamSkeleton />
   ) : screams === null ? (
     <p>No screams from this user</p>
   ) : !screamIdParam ? (
@@ -49,7 +51,7 @@ const User = ({
         {screamsMarkup}
       </Grid>
       <Grid item sm={4} xs={12}>
-        {profile === null ? <p>Loading profile...</p> : <StaticProfile profile={profile} />}
+        {profile === null ? <ProfileSkeleton /> : <StaticProfile profile={profile} />}
       </Grid>
     </Grid>
   );

@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Scream from '../components/scream/scream';
 import Profile from '../components/profile/profile';
 import { getScreams } from '../store/actions/data-actions';
+import ScreamSkeleton from '../util/scream-skeleton';
 
 const Home = ({ getScreams, data: { screams, loading } }) => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const Home = ({ getScreams, data: { screams, loading } }) => {
   const recentScreamsMarkup = !loading ? (
     screams.map(scream => <Scream scream={scream} key={scream.screamId} />)
   ) : (
-    <p>Loading...</p>
+    <ScreamSkeleton />
   );
   return (
     <Grid container spacing={3}>
